@@ -20,9 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <head>
-        <link rel="icon" href="../static/logo.ico" />
-      </head>
       <body className="bg-zinc-900 text-white">
         <QueryClientProvider client={queryClient} >
           <Navigation />
