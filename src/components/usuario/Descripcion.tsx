@@ -1,5 +1,5 @@
 import { Usuario } from "@/types/interfaces";
-import { BsPencilSquare } from "react-icons/Bs";
+// import { BsPencilSquare } from "react-icons/Bs";
 import { useState, useRef } from "react";
 import { updateUser } from "@/api/userApi";
 import { useTokenStore } from "@/store/auth";
@@ -29,7 +29,8 @@ function Descripcion({ usuario }: { usuario?: Usuario }) {
       <div className="flex text-xl gap-5 mb-5">
         <h4 className="text-3xl">Descripcion:</h4>
         <button onClick={editarDescripcion}>
-          <BsPencilSquare />
+          {/* <BsPencilSquare /> */}
+          Pencil
         </button>
       </div>
       {edit ? (
