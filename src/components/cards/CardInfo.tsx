@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import copa from "../../imgs/copa.png";
+import copa from "../../public/copa.png";
 
 type Props = {
   title: string;
@@ -14,7 +14,7 @@ function CardInfo({ title, children }: Props) {
         <h3 className="text-3xl text-red-600 font-bold pb-2">{title}</h3>
         <p className="h-36 text-zinc-200 text-xl">{children}</p>
         <Link
-          href="/crear-torneo"
+          href="/torneos/crear"
           className="py-1 bg-rose-600 w-full text-2xl block text-center"
         >
           CREAR

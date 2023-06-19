@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Usuario } from "@/types/interfaces";
-import { BsPencilSquare } from "react-icons/Bs";
+// import { BsPencilSquare } from "react-icons/Bs";
 import { useTokenStore } from "@/store/auth";
 import { useUpdateuser } from "@/hooks/useUser";
 
@@ -42,7 +42,8 @@ function Perfil({ data }: { data?: Usuario }) {
           ref={inputName}
         />
         <button className="text-white" onClick={updateName}>
-          <BsPencilSquare />
+          {/* <BsPencilSquare /> */}
+          Pencil
         </button>
       </div>
     </div>

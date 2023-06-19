@@ -7,40 +7,30 @@ import { useState } from "react";
 import DateInput from "./DateInput";
 import ListaJuegos from "./ListaJuegos";
 import { useRouter } from "next/navigation";
-import { useTokenStore } from "../../store/auth";
 import InputArray from "./InputArray";
-import { useCreateTorneo } from '@/hooks/useTorneo'
+import { useCreateTorneo, useUpdateTorneo } from '@/hooks/useTorneo'
 
-const ininitalValues: Torneo = {
-  nombre: "",
-  url_formulario: "",
-  url_pagina: "",
-  fecha_inicio: "",
-  fecha_finalizacion: "",
-  ubicacion: "",
-  categoria: "",
-  descripcion: "",
-  requisitos: [],
-  reglas: [],
-  premios: [],
-  costo: "",
-};
+type Props = {
+  initValues: Torneo,
+  isUpdate: boolean
+}
 
-function CreateTorneoForm() {
-  const [virtual, setVirtual] = useState(false);
+function CreateTorneoForm({ initValues, isUpdate }: Props) {
+  const [virtual, setVirtual] = useState(initValues.ubicacion === "VIRTUAL" ? false : true);
   const [fin, setFin] = useState(false);
-  const [costo, setCosto] = useState(false);
-  const [urlPage, setUrlPage] = useState(false);
+  const [costo, setCosto] = useState(initValues.costo === "GRATUITO" ? false : true);
+  const [urlPage, setUrlPage] = useState(initValues.url_pagina === "" ? false : true);
   const router = useRouter();
-  const { restablecer } = useTokenStore();
   const { mutate: createTorneo } = useCreateTorneo()
+  const { mutate: updateTorneo } = useUpdateTorneo()
 
   return (
     <section>
       <Formik
-        initialValues={ininitalValues}
-        onSubmit={async (values) => {
+        initialValues={initValues}
+        onSubmit={(values) => {
           const data = { ...values };
+          console.log(data.fecha_inicio)
           data.fecha_finalizacion = fin
             ? values.fecha_finalizacion
             : values.fecha_inicio;
@@ -48,28 +38,43 @@ function CreateTorneoForm() {
           data.costo = costo ? values.costo : "GRATUITO";
           data.categoria = data.categoria == "" ? "Otros" : data.categoria
 
-          createTorneo(data, {
-            onSuccess() {
-              router.push('/torneos')
-            },
-            onError(error: any) {
-              if (error.response.status === 401) {
-                restablecer();
-                router.push("/login");
+          if (isUpdate) {
+            console.log(data)
+            updateTorneo(data, {
+              onSuccess() {
+                router.push('/torneos')
+              },
+              onError(error: any) {
+                if (error.response.status === 401) {
+                  router.push("/login");
+                }
+                console.error(error);
               }
-              console.error(error);
-            }
-          })
+            })
+          } else {
+            createTorneo(data, {
+              onSuccess() {
+                router.push('/torneos')
+              },
+              onError(error: any) {
+                if (error.response.status === 401) {
+                  router.push("/login");
+                }
+                console.error(error);
+              }
+            })
+          }
+
         }}
       >
-        {({ handleChange, handleSubmit, values }) => (
+        {({ handleSubmit, values }) => (
           <form
             autoComplete="off"
             onSubmit={handleSubmit}
             className="flex flex-col gap-y-1 py-5 px-3 sm:p-5 bg-neutral-950 border-2 border-purple-700 rounded-lg max-w-4xl mx-auto"
           >
             <h3 className="text-4xl text-center font-semibold mb-5">
-              CREAR TORNEO
+              {isUpdate ? "ACTUALIZAR TORNEO" : "CREAR TORNEO"}
             </h3>
             <Label>Nombre:</Label>
             <Field
@@ -84,7 +89,6 @@ function CreateTorneoForm() {
             <Field
               className="p-1 bg-zinc-800 hover:outline-rose-600 outline-none text-white
               mb-3"
-              type="text"
               name="url_formulario"
               placeholder="Enlace del formulario de inscripcion"
               required
@@ -148,12 +152,9 @@ function CreateTorneoForm() {
 
             <ListaJuegos />
 
-            <Label>Descripcion:</Label>
-
             <TextArea
+              title="Descripcion:"
               name="descripcion"
-              handleChange={handleChange}
-              value={values.descripcion}
               rows={2}
             ></TextArea>
 

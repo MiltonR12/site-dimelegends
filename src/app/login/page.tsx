@@ -21,6 +21,7 @@ function Login() {
             password: "",
           }}
           onSubmit={({ email, password }) => {
+            setActiveButton(true)
             mutate({ email, password }, {
               onSuccess(data) {
                 login(data.token, data.username)
@@ -31,6 +32,7 @@ function Login() {
                 console.error(error)
               },
             })
+            setActiveButton(false)
           }}
         >
           {({ handleBlur, handleSubmit }) => (

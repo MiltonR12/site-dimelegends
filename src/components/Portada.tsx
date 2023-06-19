@@ -1,5 +1,5 @@
 import Image from "next/image";
-import copa from "../imgs/copa.png";
+import copa from "../public/copa.png";
 import Link from "next/link";
 
 function Portada() {
@@ -16,7 +16,7 @@ function Portada() {
           </h2>
           <Link
             href="/torneos"
-            className="bg-rose-600 text-3xl px-3 py-2 rounded-xl mx-auto md:mx-0 max-w-sm
+            className="bg-rose-600 text-xl md:text-3xl px-4 py-2 rounded-lg mx-auto md:mx-0 max-w-sm
             text-center hover:bg-rose-800 transition-all"
           >
             PARTICIPAR

@@ -19,11 +19,11 @@ function UsuarioPage() {
   if (isLoading) return <h3>Cargando...</h3>
 
   if (isError) {
-    return router.push('/')
+    return router.push('/login')
   }
 
   return (
-    <section className="text-white pt-24 px-4 pb-4 flex flex-col gap-5 container mx-auto">
+    <section className="text-white pt-24 px-4 pb-4 flex flex-col gap-5 container mx-auto min-h-screen">
       <Perfil data={data} />
       <div className="mx-auto text-xl text-zinc-100">
         <h4> {data.email} </h4>

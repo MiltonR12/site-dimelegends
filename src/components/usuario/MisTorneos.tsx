@@ -1,11 +1,13 @@
 "use client"
 import { Torneo } from "@/types/interfaces"
 import { useDeleteTorneo, useGetMisTorneos } from '@/hooks/useTorneo'
+import { useRouter } from 'next/navigation'
 
 function MisTorneos() {
 
   const { data: torneos, isLoading, isError, error } = useGetMisTorneos()
   const { mutate: deleteTorneo } = useDeleteTorneo()
+  const router = useRouter()
 
   const handleDeleteTorneo = (uuid: string | undefined) => {
     if (typeof uuid === "string")
@@ -27,7 +29,9 @@ function MisTorneos() {
           <div key={torneo.id} className="flex justify-between items-center bg-slate-950 p-3" >
             <h2 className="text-xl max-w-xs text-ellipsis overflow-hidden" > {torneo.nombre} </h2>
             <div className="flex flex-col gap-3 text-white" >
-              <button className="w-32 md:w-52 bg-blue-800 py-1" >MODIFICAR</button>
+              <button className="w-32 md:w-52 bg-blue-800 py-1" onClick={() => {
+                router.push(`/torneos/actualizar/${torneo.uuid}`)
+              }} >MODIFICAR</button>
               <button className="w-32 md:w-52 bg-red-600 py-1"
                 onClick={() => handleDeleteTorneo(torneo.uuid)} >ELIMINAR</button>
             </div>

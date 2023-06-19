@@ -24,3 +24,8 @@ export const createTorneo = async (data: Torneo) => {
 export const deleteTorneo = async (uuid: string) => {
   await axios.delete(`torneos/${uuid}`);
 };
+
+export const updateTorneo = async (torneo: Torneo) => {
+  const res = await axios.put(`/torneos/${torneo.uuid}`, torneo)
+  return res.data
+}

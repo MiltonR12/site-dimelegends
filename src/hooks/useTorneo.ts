@@ -4,6 +4,7 @@ import {
   getMisTorneos,
   getTorneo,
   getTorneos,
+  updateTorneo,
 } from "@/api/torneoApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryclient";
@@ -42,6 +43,15 @@ export const useCreateTorneo = () => {
 export const useDeleteTorneo = () => {
   return useMutation({
     mutationFn: deleteTorneo,
+    onSuccess() {
+      queryClient.invalidateQueries(["torneos", "mistorneos"]);
+    },
+  });
+};
+
+export const useUpdateTorneo = () => {
+  return useMutation({
+    mutationFn: updateTorneo,
     onSuccess() {
       queryClient.invalidateQueries(["torneos", "mistorneos"]);
     },
