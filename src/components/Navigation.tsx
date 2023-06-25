@@ -26,7 +26,7 @@ function Navigation() {
     <header className="fixed z-40 w-full bg-zinc-950 text-white shadow-md shadow-red-600/50">
       <div className="flex justify-between items-center px-3 h-14 md:h-20 max-w-7xl mx-auto">
         <div>
-          <h1 className="text-xl md:text-3xl font-semibold">Dime Legends</h1>
+          <Link href='/' className="text-xl md:text-3xl font-semibold" >Dime Legends</Link>
         </div>
         <button className="md:hidden" onClick={openMenuBar}>
           <RxHamburgerMenu className="text-white text-2xl" />
@@ -38,7 +38,7 @@ function Navigation() {
         >
           <ul className="flex flex-col md:flex-row items-center text-xl gap-5">
             <li>
-              <Link href="/" className="md:hidden">
+              <Link href={`/user/${username.replace(' ', ',')}`} className="md:hidden">
                 Mi Cuenta
               </Link>
             </li>
@@ -55,7 +55,7 @@ function Navigation() {
           {active ? (
             <Link
               href={`/user/${username.replace(' ', ".")}`}
-              className="bg-yellow-400 text-black w-11 h-11 rounded-full flex items-center justify-center"
+              className="bg-yellow-400 hidden md:flex text-black w-11 h-11 rounded-full  items-center justify-center"
             >
               <span className="text-xl font-semibold">
                 {username?.charAt(0).toUpperCase()}

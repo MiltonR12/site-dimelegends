@@ -1,0 +1,7 @@
+.contPortada {
+  background: linear-gradient(0deg, rgb(10, 10, 10, 1), rgba(0, 0, 0, 0)) 50%,
+    url(../public/fondo.jpg);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,3 +1,4 @@
+"use client"
 import Portada from "@/components/Portada";
 import Informacion from '@/components/Informacion'
 

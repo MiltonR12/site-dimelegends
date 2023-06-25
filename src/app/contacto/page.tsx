@@ -1,3 +1,4 @@
+"use client"
 function ContactoPage() {
   return (
     <div className="min-h-screen" >

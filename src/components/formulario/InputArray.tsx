@@ -1,25 +1,26 @@
+"use client"
 import { FieldArray, Field } from "formik";
 import { AiFillDelete } from "react-icons/ai";
 import { MdOutlineAdd } from "react-icons/md";
 import Label from "./Label";
 
-function InputArray({
-  name,
-  value,
-  title,
-}: {
-  name: string;
-  title: string;
-  value?: string[];
-}) {
+type Props = {
+  name: string,
+  title: string,
+  value?: string[]
+}
+
+function InputArray({ name, value, title, }: Props) {
   return (
     <FieldArray
       name={name}
       render={(props) => (
         <div>
-          <div className="flex items-center gap-5 text-2xl justify-between">
+          <div className="flex items-center gap-5 text-2xl mb-2 justify-between">
             <Label>{title}</Label>
-            <button type="button" onClick={() => props.push("")}>
+            <button type="button" className="text-4xl" onClick={() => {
+              props.push("")
+            }}>
               <MdOutlineAdd />
             </button>
           </div>
@@ -27,9 +28,10 @@ function InputArray({
             {value?.map((item, index) => (
               <div key={index} className="flex items-center gap-5">
                 <Field
+                  placeholder={`jugador nro: ${index + 1}`}
                   name={`${name}.${index}`}
                   className="p-1 bg-zinc-800 hover:outline-rose-600 outline-none 
-              text-white first-letter:mb-3 w-3/4"
+              text-white first-letter:mb-3 w-4/5"
                   required
                 />
                 <button type="button" onClick={() => props.remove(index)}>

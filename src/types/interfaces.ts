@@ -33,6 +33,15 @@ export type Usuario = {
 };
 
 export interface ResLogin {
-  token: string,
-  username: string
+  token: string;
+  username: string;
+}
+
+export interface Equipo {
+  id?: number;
+  name_team: string;
+  captain: string;
+  phone: number;
+  players: string[];
+  uuid?: string;
 }

@@ -1,14 +1,15 @@
 "use client";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { Torneo } from "../../types/interfaces";
 import TextArea from "./TextArea";
 import Label from "./Label";
-import { useState } from "react";
 import DateInput from "./DateInput";
 import ListaJuegos from "./ListaJuegos";
 import { useRouter } from "next/navigation";
 import InputArray from "./InputArray";
 import { useCreateTorneo, useUpdateTorneo } from '@/hooks/useTorneo'
+import CampText from "./CampText";
+import DynamicInput from "./DynamicInput";
 
 type Props = {
   initValues: Torneo,
@@ -16,10 +17,6 @@ type Props = {
 }
 
 function CreateTorneoForm({ initValues, isUpdate }: Props) {
-  const [virtual, setVirtual] = useState(initValues.ubicacion === "VIRTUAL" ? false : true);
-  const [fin, setFin] = useState(false);
-  const [costo, setCosto] = useState(initValues.costo === "GRATUITO" ? false : true);
-  const [urlPage, setUrlPage] = useState(initValues.url_pagina === "" ? false : true);
   const router = useRouter();
   const { mutate: createTorneo } = useCreateTorneo()
   const { mutate: updateTorneo } = useUpdateTorneo()
@@ -29,17 +26,12 @@ function CreateTorneoForm({ initValues, isUpdate }: Props) {
       <Formik
         initialValues={initValues}
         onSubmit={(values) => {
-          const data = { ...values };
-          console.log(data.fecha_inicio)
-          data.fecha_finalizacion = fin
-            ? values.fecha_finalizacion
-            : values.fecha_inicio;
-          data.ubicacion = virtual ? values.ubicacion : "VIRTUAL";
-          data.costo = costo ? values.costo : "GRATUITO";
-          data.categoria = data.categoria == "" ? "Otros" : data.categoria
-
+          const data = { ...values }
+          data.costo = !!data.costo ? data.costo : "Gratuito"
+          data.fecha_finalizacion = !!data.fecha_finalizacion ? data.fecha_finalizacion : data.fecha_inicio
+          data.ubicacion = !!data.ubicacion ? data.ubicacion : "Virtual"
+          data.categoria = !!data.categoria ? data.categoria : "Otros"
           if (isUpdate) {
-            console.log(data)
             updateTorneo(data, {
               onSuccess() {
                 router.push('/torneos')
@@ -76,87 +68,66 @@ function CreateTorneoForm({ initValues, isUpdate }: Props) {
             <h3 className="text-4xl text-center font-semibold mb-5">
               {isUpdate ? "ACTUALIZAR TORNEO" : "CREAR TORNEO"}
             </h3>
-            <Label>Nombre:</Label>
-            <Field
-              className="p-1 bg-zinc-800 hover:outline-rose-600 
-              outline-none text-whitemb-3"
+
+            <CampText
+              title="Nombre del Torneo"
               name="nombre"
               placeholder="Nombre del torneo creado"
-              required
-            />
-
-            <Label>Enlace del furmulario</Label>
-            <Field
-              className="p-1 bg-zinc-800 hover:outline-rose-600 outline-none text-white
-              mb-3"
-              name="url_formulario"
-              placeholder="Enlace del formulario de inscripcion"
-              required
             />
 
             <Label>Fecha de Inicio</Label>
             <DateInput type="date" name="fecha_inicio" />
 
-            <Label>Fecha de Finalizacion:</Label>
-            <div>
-              <button
-                className="px-3 py-1 w-2/6 border-rose-500 border-2 mb-3"
-                type="button"
-                onClick={() => setFin(!fin)}
-              >
-                {fin ? "Eliminar" : "Agregar"}
-              </button>
-              {fin && <DateInput type="date" name="fecha_finalizacion" />}
-            </div>
+            <DynamicInput
+              title="Formulario de Inscripcion"
+              name="url_formulario"
+              value={initValues.url_formulario}
+              type="text"
+              optionOne="Generar"
+              optionTwo="Añadir"
+            />
 
-            <Label>Ubicacion:</Label>
+            <DynamicInput
+              title="Fecha de Finalizacion"
+              name="fecha_finalizacion"
+              type="date"
+              value={initValues.fecha_finalizacion}
+              optionOne="Eliminar"
+              optionTwo="Agregar"
+            />
 
-            <div>
-              <button
-                className="px-3 py-1 w-2/6 border-rose-500 border-2 mb-3"
-                type="button"
-                onClick={() => setVirtual(!virtual)}
-              >
-                {virtual ? "Presencial" : "Virtual"}
-              </button>
-              {virtual && <DateInput type="text" name="ubicacion" />}
-            </div>
+            <DynamicInput
+              title="Ubicacion"
+              name="ubicacion"
+              type="text"
+              value={initValues.ubicacion}
+              optionOne="Presencial"
+              optionTwo="Virtual"
+            />
 
-            <Label>Enlace del Grupo / Pagina</Label>
+            <DynamicInput
+              title="Enlace del Grupo / Pagina"
+              name="url_pagina"
+              type="text"
+              value={initValues.url_pagina}
+              optionOne="Eliminar"
+              optionTwo="Agregar"
+            />
 
-            <div>
-              <button
-                className="px-3 py-1 w-2/6 border-rose-500 border-2 mb-3"
-                type="button"
-                onClick={() => setUrlPage(!urlPage)}
-              >
-                {urlPage ? "Eliminar" : "Agregar"}
-              </button>
-              {urlPage && <DateInput type="text" name="url_pagina" />}
-            </div>
-
-            <Label>Costo de inscripcion</Label>
-
-            <div>
-              <button
-                className="px-3 py-1 w-2/6 border-rose-500 border-2 mb-3"
-                type="button"
-                onClick={() => setCosto(!costo)}
-              >
-                {costo ? "GRATUITO" : "AÑADIR COSTO"}
-              </button>
-              {costo && <DateInput type="text" name="costo" />}
-            </div>
+            <DynamicInput
+              title="Costo de inscripcion"
+              name="costo"
+              type="text"
+              value={initValues.costo}
+              optionOne="Gratuito"
+              optionTwo="Añadir"
+            />
 
             <Label>Juego:</Label>
 
             <ListaJuegos />
 
-            <TextArea
-              title="Descripcion:"
-              name="descripcion"
-              rows={2}
-            ></TextArea>
+            <TextArea title="Descripcion:" name="descripcion" rows={2} ></TextArea>
 
             <InputArray name="requisitos" title="Requisitos" value={values.requisitos} />
 

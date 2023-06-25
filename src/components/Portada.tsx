@@ -1,16 +1,17 @@
 import Image from "next/image";
 import copa from "../public/copa.png";
 import Link from "next/link";
+import estilos from '@/styles/portada.module.css'
 
 function Portada() {
   return (
-    <section className="bg-image-fondo h-screen bg-center bg-no-repeat bg-cover md:pt-20 flex items-center">
+    <section className={`h-screen md:pt-20 flex items-center ${estilos.contPortada}`} >
       <div
-        className="container mx-auto backdrop-blur-md p-5 bg-black/50 flex flex-col
+        className="container mx-auto backdrop-blur-md p-5 bg-black/30 flex flex-col
         items-center justify-between gap-7 md:flex-row rounded-2xl"
       >
-        <div className="flex flex-col">
-          <h2 className="text-4xl text-center md:text-5xl font-bold md:text-left block md:w-2/4 pb-5">
+        <div className="flex flex-col md:w-2/4">
+          <h2 className="text-4xl text-center md:text-5xl font-bold md:text-left block pb-5 max-w-xl">
             JUEGA Y GANA <br /> EN LOS MEJORES TORNEOS DE <br />
             <span className="text-rose-600"> BOLIVIA</span>
           </h2>
@@ -22,7 +23,7 @@ function Portada() {
             PARTICIPAR
           </Link>
         </div>
-        <div>
+        <div className="w-2/4 flex items-center justify-center" >
           <Image
             alt="copa"
             src={copa}

@@ -1,3 +1,4 @@
+"use client"
 import CreateTorneoForm from "@/components/formulario/CreateTorneoForm";
 import { Torneo } from '@/types/interfaces'
 

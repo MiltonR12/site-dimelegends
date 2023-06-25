@@ -6,7 +6,6 @@ function CardTorneo({
   nombre,
   fecha_inicio,
   categoria,
-  descripcion,
   premios,
   costo,
   id

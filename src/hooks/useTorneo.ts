@@ -44,7 +44,7 @@ export const useDeleteTorneo = () => {
   return useMutation({
     mutationFn: deleteTorneo,
     onSuccess() {
-      queryClient.invalidateQueries(["torneos", "mistorneos"]);
+      queryClient.invalidateQueries(["mistorneos", "torneos"]);
     },
   });
 };

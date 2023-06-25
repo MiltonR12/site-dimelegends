@@ -3,11 +3,13 @@ import CardList from "@/components/cards/CardList";
 import CardSection from "@/components/cards/CardSection";
 import { useGetTorneo } from "@/hooks/useTorneo";
 import { Torneo } from "@/types/interfaces";
-import { useParams } from 'next/navigation'
+import { esEnlaceValido } from "@/utils/validateUrl";
+import { useParams, useRouter } from 'next/navigation'
 
 function Torneo() {
 
   const params = useParams()
+  const router = useRouter()
 
   const { data, isLoading, isError, error } = useGetTorneo(parseInt(params.id))
 
@@ -18,7 +20,7 @@ function Torneo() {
   const torneo = data as Torneo
 
   return (
-    <section className="pt-20 md:pt-24 px-4">
+    <section className="pt-2 md:pt-24 px-1 md:px-4">
       <div
         className="border-2 border-cyan-400 p-3 md:p-5 flex flex-col gap-3 max-w-4xl 
       mx-auto bg-zinc-950 text-zinc-200"
@@ -53,9 +55,15 @@ function Torneo() {
         <CardList datos={torneo.requisitos} title="Requisitos" />
         <CardList datos={torneo.reglas} title="Reglamento" />
 
-        <button className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold">
-          FORMULARIO
-        </button>
+        {
+          esEnlaceValido(torneo.url_formulario) ? <a href={torneo.url_formulario}
+            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold"
+          >Formulario</a> : <button
+            onClick={() => router.push(`/torneos/form/${torneo.url_formulario}`)}
+            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold">
+            Formulario
+          </button>
+        }
 
         {torneo.url_pagina && (
           <button className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold">
