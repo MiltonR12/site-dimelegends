@@ -57,18 +57,20 @@ function Torneo() {
 
         {
           esEnlaceValido(torneo.url_formulario) ? <a href={torneo.url_formulario}
-            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold"
+            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold 
+            border-2 border-cyan-500 hover:bg-transparent hover:text-cyan-500"
           >Formulario</a> : <button
             onClick={() => router.push(`/torneos/form/${torneo.url_formulario}`)}
-            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold">
+            className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold 
+            border-2 border-cyan-500 hover:bg-transparent hover:text-cyan-500">
             Formulario
           </button>
         }
 
         {torneo.url_pagina && (
-          <button className="bg-cyan-500 text-black py-2 w-full text-2xl font-semibold">
+          <a href={torneo.url_pagina} className="border-2 border-cyan-500 text-cyan-500 py-2 w-full text-2xl font-semibold text-center">
             PAGINA / GRUPO
-          </button>
+          </a>
         )}
       </div>
     </section>

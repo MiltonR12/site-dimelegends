@@ -18,10 +18,10 @@ function InputArray({ name, value, title, }: Props) {
         <div>
           <div className="flex items-center gap-5 text-2xl mb-2 justify-between">
             <Label>{title}</Label>
-            <button type="button" className="text-4xl" onClick={() => {
+            <button type="button" className="text-2xl flex items-center" onClick={() => {
               props.push("")
             }}>
-              <MdOutlineAdd />
+              <MdOutlineAdd /> Añadir
             </button>
           </div>
           <div className="flex flex-col gap-5">

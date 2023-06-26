@@ -28,7 +28,7 @@ function ListPage({ params }: { params: Params }) {
       </div>
       {
         data.map((item: Equipo) => (
-          <CardTeam key={item.id} equipo={item} />
+          <CardTeam key={item.id} equipo={item} url={params.torneo_uuid} />
         ))
       }
     </div>

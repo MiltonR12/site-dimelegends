@@ -63,7 +63,7 @@ function CreateTorneoForm({ initValues, isUpdate }: Props) {
           <form
             autoComplete="off"
             onSubmit={handleSubmit}
-            className="flex flex-col gap-y-1 py-5 px-3 sm:p-5 bg-neutral-950 border-2 border-purple-700 rounded-lg max-w-4xl mx-auto"
+            className="flex flex-col gap-y-3 py-5 px-3 sm:p-5 bg-neutral-950 border-2 border-purple-700 rounded-lg max-w-4xl mx-auto"
           >
             <h3 className="text-4xl text-center font-semibold mb-5">
               {isUpdate ? "ACTUALIZAR TORNEO" : "CREAR TORNEO"}
@@ -75,8 +75,7 @@ function CreateTorneoForm({ initValues, isUpdate }: Props) {
               placeholder="Nombre del torneo creado"
             />
 
-            <Label>Fecha de Inicio</Label>
-            <DateInput type="date" name="fecha_inicio" />
+            <CampText name="fecha_inicio" title="Fecha de Inicio" type="date" />
 
             <DynamicInput
               title="Formulario de Inscripcion"

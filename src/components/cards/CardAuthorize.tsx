@@ -9,7 +9,7 @@ interface Props {
 function CardAuthorize({ ocultar, eliminar }: Props) {
 
   return (
-    <div className='absolute bg-zinc-900 p-2 left-2/4 translate-x-[-50%]' >
+    <div className='absolute bg-zinc-900 p-2 left-2/4 translate-x-[-50%] w-80' >
       <h3 className='text-2xl mb-5' >
         ¿Estas seguro de que quieres eliminar?
       </h3>

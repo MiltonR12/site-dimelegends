@@ -5,6 +5,7 @@ import InputArray from './InputArray'
 import Label from './Label'
 import { useRegisterDevice } from '@/hooks/useFormTeam'
 import { useState } from 'react'
+import CampText from './CampText'
 
 const initValues = {
   name_team: "",
@@ -44,14 +45,11 @@ function RegistroForm({ url_formulario, envioExitoso }: Props) {
         {({ values, handleSubmit }) => (
           <form
             onSubmit={handleSubmit}
-            className='bg-zinc-950 p-3 flex flex-col gap-5 max-w-lg mx-auto'
+            className='bg-zinc-950 p-3 flex flex-col gap-6 max-w-lg mx-auto'
             autoComplete='off' >
-            <Label>Nombre del Equipo</Label>
-            <DateInput name='name_team' type='text' />
-            <Label>Capitan de Equipo</Label>
-            <DateInput name='captain' type='text' />
-            <Label>Numero del Capitan</Label>
-            <DateInput name='phone' type='number' />
+            <CampText name='name_team' title='Nombre de Equipo' key='Eje. Team admin' />
+            <CampText name='captain' title='Nombre del Capitan' key='Eje. Jose Miguel' />
+            <CampText name='phone' title='Celular del Capitan' placeholder='Eje. 0000000' type='number' />
             <InputArray name='players' title='Integrantes' value={values.players} />
             <button
               disabled={buttonActive}

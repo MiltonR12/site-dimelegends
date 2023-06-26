@@ -1,4 +1,4 @@
-import { getTeams, registerDevice } from "@/api/formApi";
+import { deleteRecord, getTeams, registerDevice } from "@/api/formApi";
 import { queryClient } from "@/lib/queryclient";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -17,3 +17,12 @@ export const useRegisterDevice = () => {
     },
   });
 };
+
+export const useDeleteRecord = () => {
+  return useMutation({
+    mutationFn: deleteRecord,
+    onSuccess() {
+      queryClient.invalidateQueries(["teams"])
+    }    
+  })
+}
