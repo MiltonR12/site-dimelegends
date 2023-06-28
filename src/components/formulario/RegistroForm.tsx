@@ -1,11 +1,10 @@
 "use client"
 import { Formik } from 'formik'
-import DateInput from './DateInput'
 import InputArray from './InputArray'
-import Label from './Label'
 import { useRegisterDevice } from '@/hooks/useFormTeam'
 import { useState } from 'react'
 import CampText from './CampText'
+import { Equipo } from '@/types/interfaces'
 
 const initValues = {
   name_team: "",
@@ -17,9 +16,10 @@ const initValues = {
 type Props = {
   url_formulario: string
   envioExitoso: Function
+  initValues: Equipo
 }
 
-function RegistroForm({ url_formulario, envioExitoso }: Props) {
+function RegistroForm({ url_formulario, envioExitoso, initValues }: Props) {
 
   const { mutate: registrarTeam } = useRegisterDevice()
   const [buttonActive, setButtonActive] = useState(false)

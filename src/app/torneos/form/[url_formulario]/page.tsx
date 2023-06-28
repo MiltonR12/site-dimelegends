@@ -1,10 +1,18 @@
 "use client"
 import CardSuccess from '@/components/cards/CardSuccess'
 import RegistroForm from '@/components/formulario/RegistroForm'
+import { Equipo } from '@/types/interfaces'
 import { useState } from 'react'
 
 interface Params {
   url_formulario: string
+}
+
+const initValues: Equipo = {
+  captain: "",
+  name_team: "",
+  phone: 0,
+  players: ["", "", ""],
 }
 
 function FormularioPage({ params }: { params: Params }) {
@@ -22,6 +30,7 @@ function FormularioPage({ params }: { params: Params }) {
         formActive ? <RegistroForm
           url_formulario={params.url_formulario}
           envioExitoso={envioExitoso}
+          initValues={initValues}
         /> : <CardSuccess />
       }
     </div>
